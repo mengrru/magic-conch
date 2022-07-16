@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冲浪时间</title>
+    <link href="./index.css" rel="stylesheet">
+</head>
+<body>
+  <header id="top-header">
+    <div class="header-content">
+      <h1>冲浪时间</h1>
+      <div>
+        <div class="surf-filter" id="surf-filter">
+          <select id="type-select">
+            <option value="all">全部</option>
+          </select>
+          <button id="btn-start">开始冲浪</button>
+        </div>
+        <div class="current-info">
+          <div>此刻，你来到了：<a target="_blank" id="url-display">无人之境</a></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="view-container">
+    <iframe id="viewer"></iframe>
+  </div>
+  <script src="./index.js"></script>
+  <script>
+  fetch('./index.json')
+    .then(res => res.json())
+    .then(data => {
+      Surf.init(data)
+    })
+  </script>
+</body>
+</html>
+

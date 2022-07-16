@@ -1,0 +1,16 @@
+{
+  "personal": {
+    "name": "个人网站",
+    "items": [
+      "https://sadgrl.online/",
+      "https://novov.me/"
+    ]
+  },
+  "others": {
+    "name": "其它",
+    "items": [
+      "https://www.createblog.com/layouts/",
+      "http://din-dong.net/index.html"
+    ]
+  }
+}
