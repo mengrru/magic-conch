@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no;">
+	<title>To Do</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="error" class="error hide-d">
+		<h1>少年，咱们换个浏览器吧！</h1>
+		<p class="sta"><a href="#">去下载Chrome</a></p>
+	</div>
+	<div id="container" class="container">
+		<h1>To Do List</h1>
+		<p class="sta">
+			<span id="remaining">0</span>
+			of
+			<span id="all">0</span>
+			remaining
+		</p>
+		<p id="clear" class="sta pointer clean">clean</p>
+		<div class="width-ctrl">
+			<form id="add-task" class="add-task" name="addTaskForm" onsubmit="return false">
+				<input type="text" class="new-task-inp" name="newTaskInp" value="">
+				<input id="add_new_btn"2 type="submit" class="add-task-btn pointer" name="addTaskBtn" value="发射！">
+			</form>
+			<div id="warm" class="warm">sdfklsjfd</div>
+			<ul id="task-list" class="task-list"></ul>
+		</div>
+
+		<footer>
+			<p>Powered by Sevenskey</p>
+			<p>要吃鱼啊喵(^=ω=^)</p>
+		</footer>
+	</div>
+
+	<script src="list.js"></script>
+	<script src="control.js"></script>
+
+	<script type="text/javascript">
+
+	;(function() {
+
+	var list = new Todo();
+	var addNewBtn = document.getElementById('add_new_btn'),
+		clearBtn = document.getElementById('clear'),
+		input = document.forms.addTaskForm.newTaskInp,
+		warm = document.getElementById('warm'),
+		remaining = document.getElementById('remaining'),
+		all = document.getElementById('all');
+
+	input.focus();
+
+	list.init(statistics);
+
+	statistics(list);
+
+	addNewBtn.addEventListener('click', function() {
+		var	newTask = input.value;
+
+		if(checkInp(newTask)) {
+			list.addTask(newTask, statistics);
+			input.value = '';
+		} else {
+			removeClass(warm, 'hide-d')
+			addClass(warm, 'show-d');
+			setTimeout("addClass(warm, 'hide-d');removeClass(warm, 'show-d');", 1000);
+		}
+		input.focus();
+	});
+
+	clearBtn.addEventListener('click', function() {
+		list.clear();
+		statistics(list);
+	})
+
+	window.onbeforeunload = function() {
+		list.writeData('todo');
+	}
+
+	function statistics(list) {
+		var list = list || this;
+
+		remaining.innerHTML = list.remaining.length();
+		all.innerHTML = list.remaining.length() + list.done.length();
+	}
+
+	function checkInp(content){
+		var re = /^\w{1,7}$/g;
+		var is = re.test(content);
+
+		if(is) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	})()
+	</script>
+</body>
+</html>

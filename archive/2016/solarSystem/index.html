@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Solar System</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="print_box" class="print_box">
+		<div id="print_area" class="print_area"></div>
+	</div>
+	
+	<div class="solar_system">
+		<div class="star sun"></div>
+		<div class="loop mercury_loop">
+			<div class="star mercury"></div>
+		</div>
+		<div class="loop venus_loop">
+			<div class="star venus"></div>
+		</div>
+		<div class="loop earth_loop">
+			<div class="star earth"></div>
+		</div>
+		<div class="loop mars_loop">
+			<div class="star mars"></div>
+		</div>
+		<div class="loop jupiter_loop">
+			<div class="star jupiter"></div>
+		</div>
+		<div class="loop saturn_loop">
+			<div class="star saturn"></div>
+		</div>
+		<div class="loop uranus_loop">
+			<div class="star uranus"></div>
+		</div>
+		<div class="loop neptune_loop">
+			<div class="star neptune"></div>
+		</div>
+	</div>
+	
+
+	<div id="other_star" class="other_star">
+		<div class="little_star"></div>
+	</div>
+
+	<textarea id="content">
+		在可观测宇宙1700亿个星系中的处女座超星系团，
+		在1.1亿光年直径星团中的银河，
+		在位于银河边缘的猎户旋臂，
+		在旋臂距银河中心27000光年的古尔德带星环，
+		在星环中心以外325光年的太阳系，
+		在距太阳系中心1.5亿公里的第三颗行星——地球，
+		人类伴随着它孤独地旋转了190万年。
+
+		旅行者1号用了36年飞出了太阳系，
+		带着人类探索宇宙的祈愿，
+		不知还要飞行多少个36年。
+
+		当看到亘古不变的星图，
+		想到现在所看到的景象
+		与千年前的与你同样抬头看星星的人所看到的一样的时候，
+		是不是会感到这个世界是多么的神奇。
+		星星注视着地球上所发生的一切变迁，
+		而人类的出现和发展只不过是它们值班时打一个哈欠的功夫发生的事。
+
+		非常想告诉你们，
+		今晚星星很多，
+		可以抬头看看。
+	</textarea>
+
+	<script type="text/javascript">
+	window.onload = function() {
+		createOtherStar();
+		launchWord();
+	}
+	
+	function createOtherStar(){
+		var otherStar = document.getElementById('other_star');
+
+		for(var i=0; i<200; i++) {
+			var star = document.createElement('div');
+		star.setAttribute('class', 'little_star');
+			star.style.top = Math.random()*100+'%';
+			star.style.left = Math.random()*100+'%';
+			otherStar.appendChild(star);
+		}		
+	}
+
+	function getStyle(obj, attr){
+    	return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, null)[attr];
+    }
+
+	function launchWord() {
+		var myCode = document.getElementById('content').value;
+		var myPrintArea = document.getElementById('print_area');
+		var speed = 150;
+		var container = document.getElementById('print_box');
+
+		var test = new FlyCode(myCode, myPrintArea, container, speed);
+
+		//test.fliter();
+		test.print();
+		//test.writeStyle();
+
+		//console.log(myCode)
+	}
+	
+	function FlyCode(code, printArea, container, speed){
+		this.code = code;
+		this.printArea = printArea;
+		this.container = container;
+		this.speed = speed;
+		this.codeArr = code.split('\n');
+		this.classNum = 0;
+
+		var codeArr = this.codeArr,
+			charArr = new Array();
+
+		for(var i=0; i<codeArr.length; i++) {
+			charArr.push(codeArr[i].split(''));
+		}
+
+		this.charArr = charArr;
+	}
+
+	FlyCode.prototype.print = function() {
+		var charArr = this.charArr,
+			printArea = this.printArea,
+			container = this.container,
+			speed = this.speed,
+			i=0 ,j=0;
+		
+		var printChar = setInterval(function(){
+			var printAreaHeight = parseInt(getStyle(printArea, 'height')),
+				containerHeight = parseInt(getStyle(container, 'height')),
+				containerPadding = parseInt(getStyle(container, 'padding-top')) + parseInt(getStyle(container, 'padding-bottom'));
+
+			if(charArr[i]!= undefined) {
+				if(charArr[i][j] != undefined) {
+					printArea.innerHTML += charArr[i][j];
+					j++;
+				} else {
+					printArea.innerHTML += '<br>';
+					i++;
+					j = 0;
+				}
+			} else {
+				setTimeout(function(){
+					container.setAttribute('style', 'opacity:0;')
+				}, 10000)
+				clearInterval(printChar);
+			}
+
+			if(printAreaHeight > containerHeight) {
+
+				printArea.setAttribute('style', 'transform:translateY(-'+(printAreaHeight - containerHeight+containerPadding)+'px)');
+			}
+			
+		}, speed);
+
+	}
+
+	</script>
+
+	<iframe class="bgmusic" frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=52 src="http://music.163.com/outchain/player?type=2&id=28699443&auto=1&height=32"></iframe>
+</body>
+</html>

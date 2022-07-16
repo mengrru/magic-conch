@@ -1,0 +1,255 @@
+html, body {
+	width: 100%; height: 100%;
+	margin: 0;
+	background: black;
+	overflow: hidden;
+}
+div {
+	box-sizing: border-box;
+}
+#content {
+	display: none;
+}
+.print_box {
+	height: 100%;
+	padding: 20px;
+	overflow: hidden;
+	position: absolute;
+	z-index: 3;
+	transition: opacity 1s;
+}
+.print_area {
+	color: #ccc;
+	font-size: 12px;
+	line-height: 24px;
+	transition: all .3s;
+}
+.solar_system {
+	position: absolute;
+	width:100%; height: 100%;
+	z-index: 2;
+}
+.star {
+	border-radius: 50%;
+	position: absolute;
+}
+.loop {
+	border-radius: 50%;
+
+	border: 1px solid #aaa;
+
+	position: absolute;
+	top: 50%; left: 50%;
+}
+
+.sun {
+	width: 70px; height: 70px;
+	background: yellow;
+
+	border: 3px solid orange;
+	box-shadow: 0 0 35px red;
+	
+	top: 50%; left: 50%;
+	margin-top: -35px;
+	margin-left: -35px;
+}
+.mercury_loop {
+	width: 100px; height: 100px;
+	margin-top: -50px;
+	margin-left: -50px;
+	border-color: #666;
+}
+.mercury {
+	width: 12px; height: 12px;
+	background: #B9540F;
+	box-shadow: 0 0 10px #9F9222;
+
+	top: 19px;
+}
+.venus_loop {
+	width: 130px; height: 130px;
+	margin-top: -65px;
+	margin-left: -65px;
+}
+.venus {
+	width: 18px; height: 18px;
+	background: #F83E00;
+	box-shadow: 0 0 10px #805E10;
+	left: 88px;
+}
+.earth_loop {
+	width: 180px; height: 180px;
+	margin-top: -90px;
+	margin-left: -90px;
+}
+.earth {
+	width: 23px; height: 23px;
+	background: #03548F;
+	box-shadow: 0 0 10px #0F4981;
+	top: 34px;
+}
+.mars_loop {
+	width: 230px; height: 230px;
+	margin-top: -115px;
+	margin-left: -115px;
+}
+.mars {
+	width: 21px; height: 21px;
+	background: #991404;
+	box-shadow: 0 0 10px #971C1C;
+	left: 55px;
+}
+.jupiter_loop {
+	width: 330px; height: 330px;
+	margin-left: -165px;
+	margin-top: -165px;
+}
+.jupiter {
+	width: 40px; height: 40px;
+	background: #5F2F0D;
+	box-shadow: 0 0 10px #665143;
+	top: 220px;
+}
+.saturn_loop {
+	width: 400px; height: 400px;
+	margin-top: -200px;
+	margin-left: -200px;
+}
+.saturn {
+	width: 30px; height: 30px;
+	background: #BA7F30;
+	box-shadow: 0 0 10px #665143;
+	left: 110px;
+}
+.uranus_loop {
+	width: 470px; height: 470px;
+	margin-left: -235px;
+	margin-top: -235px;
+}
+.uranus {
+	width: 28px; height: 28px;
+	background: #4D6784;
+	box-shadow: 0 0 10px #8290CA;
+	top: 140px;
+}
+.neptune_loop {
+	width: 540px; height: 540px;
+	margin-top: -270px;
+	margin-left: -270px;
+}
+.neptune {
+	width: 26px; height: 26px;
+	background: #1A2C68;
+	box-shadow: 0 0 10px #3A549D;
+	left: 170px;
+}
+
+.other_star {
+	width: 100%; height: 100%;
+	position: relative;
+	z-index: 0;
+}
+.little_star {
+	width: 2px; height: 2px;
+	border-radius: 50%;
+	background: #ddd;
+	box-shadow: 0 0 7px #fff;
+	position: absolute;
+}
+
+.bgmusic {
+	display: none;
+}
+
+@-webkit-keyframes spin_anti {
+  100% {
+    -webkit-transform: rotate(-360deg);
+       -moz-transform: rotate(-360deg);
+        -ms-transform: rotate(-360deg);
+         -o-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
+@keyframes spin_anti {
+	100% {
+		-webkit-transform: rotate(-360deg);
+    	-moz-transform: rotate(-360deg);
+        -ms-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+		transform: rotate(-360deg);
+	}
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+       -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+         -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+	100% {
+		-webkit-transform: rotate(360deg);
+    	-moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+.mercury_loop {
+	animation: spin_anti 5s linear infinite;
+	-webkit-animation: spin_anti 5s linear infinite;
+    -moz-animation: spin_anti 5s linear infinite;
+    -ms-animation: spin_anti 5s linear infinite;
+    -o-animation: spin_anti 5s linear infinite;
+}
+.venus_loop {
+	animation: spin 13s linear infinite;
+	-webkit-animation: spin 13s linear infinite;
+    -moz-animation: spin 13s linear infinite;
+    -ms-animation: spin 13s linear infinite;
+    -o-animation: spin 13s linear infinite;
+}
+.earth_loop {
+	-webkit-animation: spin_anti 20s linear infinite;
+    -moz-animation: spin_anti 20s linear infinite;
+    -ms-animation: spin_anti 20s linear infinite;
+    -o-animation: spin_anti 20s linear infinite;
+	animation: spin_anti 20s linear infinite;
+}
+.mars_loop {
+	animation: spin_anti 40s linear infinite;
+	-webkit-animation: spin_anti 40s linear infinite;
+    -moz-animation: spin_anti 40s linear infinite;
+    -ms-animation: spin_anti 40s linear infinite;
+    -o-animation: spin_anti 40s linear infinite;
+}
+.jupiter_loop {
+	animation: spin_anti 200s linear infinite;
+	-webkit-animation: spin_anti 200s linear infinite;
+    -moz-animation: spin_anti 200s linear infinite;
+    -ms-animation: spin_anti 200s linear infinite;
+    -o-animation: spin_anti 200s linear infinite;
+}
+.saturn_loop {
+	animation: spin_anti 300s linear infinite;
+	-webkit-animation: spin_anti 300s linear infinite;
+    -moz-animation: spin_anti 300s linear infinite;
+    -ms-animation: spin_anti 300s linear infinite;
+    -o-animation: spin_anti 300s linear infinite;
+}
+.uranus_loop {
+	animation: spin_anti 800s linear infinite;
+	-webkit-animation: spin_anti 800s linear infinite;
+    -moz-animation: spin_anti 800s linear infinite;
+    -ms-animation: spin_anti 800s linear infinite;
+    -o-animation: spin_anti 800s linear infinite;
+}
+.neptune_loop {
+	animation: spin_anti 10s linear infinite;
+	-webkit-animation: spin_anti 10s linear infinite;
+    -moz-animation: spin_anti 10s linear infinite;
+    -ms-animation: spin_anti 10s linear infinite;
+    -o-animation: spin_anti 10s linear infinite;
+}

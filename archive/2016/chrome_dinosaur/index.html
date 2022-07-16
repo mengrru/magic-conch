@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Chrome Dinosaur</title>
+	<!-- (C)Sevenskey - 2016.2.25 - 2hours -->
+	<style type="text/css">
+		html {
+			font-size: 20px;
+		}
+		.unit {
+			margin: 0 auto;
+			margin-top: 2rem;
+
+		}
+		h1 {
+			text-align: center;
+			margin-top: 450px;
+		}
+	</style>
+</head>
+<body>
+	<div id="unit" class="unit"></div>
+	<h1>Chrome小恐龙 - CSS高清重置</h1>
+
+	<script type="text/javascript">
+		var config = {
+			unit: 'unit', //像素画的初始像素单元，id或对象
+			width: 20,
+			height: 20, //如果所期望的像素单元是正方形，width和height可以只填一个
+			color: '#555', //像素点颜色
+			initialVertical: 0, //像素画开始生成的位置相对于初始像素单元的位置的垂直位置，可以不填，默认为0
+			dotMatrix: [ //图像点阵，第一维分隔每行像素，第二维分隔每行上不同区域的像素点
+				[ [1, 8] ],
+				[ [0, 1], [3, 9] ],
+				[ [0, 9] ],
+				[ [0, 9] ],
+				[ [0, 9] ],
+				[ [0, 4] ],
+				[ [0, 7]],
+				[ [-1, 3], [-11, -11]],
+				[ [-3, 3], [-11, -11]],
+				[ [-5, 5], [-11, -10]],
+				[ [-6, 3], [5, 5], [-11, -9]],
+				[ [-11, 3]],
+				[ [-11, 3]],
+				[ [-10, 2]],
+				[ [-9, 1]],
+				[ [-8, 0]],
+				[ [-7, 0], [-20, -10], [3, 20]],
+				[ [-7, -5], [-1, 0]],
+				[ [-7, -6], [0, 0], [14, 16]],
+				[ [-7, -7], [0, 0], [-15, -12]],
+				[ [-7, -6], [0, 1], [6, 6]],
+				[ [-20, -17], [-10,-9], [11,14]]
+			]
+		};
+
+		function Pixel(config) {
+			this.unit = this.fun.getObj(config.unit);
+			this.width = config.width ? config.width : config.height;
+				this.width = typeof this.width == 'string' ? this.width : this.width + 'px';
+			this.height = config.height ? config.height : config.width;
+				this.height = typeof this.height == 'string' ? this.height : this.height + 'px';
+			this.color = config.color;
+			this.initial = config.initialVertical ? config.initialVertical : 0;
+			this.dotMatrix = config.dotMatrix;
+			
+			this.unit.style.display = 'block';
+			this.unit.style.width = this.width;
+			this.unit.style.height = this.height;
+			this.unit.style.background = 'transparent';
+
+			this.draw();
+		}
+
+		Pixel.prototype.draw = function() {
+			var color = this.color,
+				dotMatrix = this.dotMatrix,
+				initial = this.initial,
+				w = parseInt(this.width),
+				h = parseInt(this.height);
+
+			var styleArray = new Array();
+
+			for(var i=0; i<dotMatrix.length; i++) {
+				for(var j=0; j<dotMatrix[i].length; j++) {
+					var pNum = dotMatrix[i][j][1] - dotMatrix[i][j][0] + 1; //每个像素片段的像素数
+					for(var z=0; z<pNum; z++) {
+						styleArray.push(w*(dotMatrix[i][j][0]+z)+'px '+h*initial+ 'px 0 '+color); //解析并储存每个像素点的位置和颜色信息
+					}
+				}
+				initial++;
+			}
+
+			this.unit.style.boxShadow = styleArray.toString();
+		}
+		Pixel.prototype.fun = {
+			getObj: function(a) {
+				return typeof a == 'object' ? a : document.getElementById(a);
+			}
+		}
+
+		var p = new Pixel(config);
+	</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Christmas Tree</title>
+	<style type="text/css">
+		body {
+			text-align: center;
+			margin: 0;
+			background-color: #000;
+		}
+		#xmastree_canvas {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="main_canvas" width="1000" height="650"></canvas>
+	<br>
+	<canvas id="xmastree_canvas" width="35" height="70"></canvas>
+
+	<script type="text/javascript">
+
+	window.onload = function() {
+		loadImage('xmastree.jpg', launch);
+	}
+
+	function launch() {
+		var mainCanvas = document.getElementById('main_canvas');
+		var xmastreeCanvas = document.getElementById('xmastree_canvas');
+
+        var test = new XmasTree(mainCanvas, xmastreeCanvas, 'Merry Christmas :)',this);
+
+		test.drawTheTree();
+		test.drawWords();
+		test.snow();
+	}
+
+	function loadImage(url, callback) { //预加载图片,然后执行callback
+		var img = new Image();
+			img.src = url;
+			img.onload = function() {
+				callback.call(img);
+			}
+	}
+
+	function XmasTree(mainCanvas, xmastreeCanvas, words, imgObj) {
+		var _this = this;
+
+		this.mainCanvas = mainCanvas;
+		this.mainCtx = this.mainCanvas.getContext('2d');
+		this.M_C_WIDTH = this.mainCanvas.width;
+		this.M_C_HEIGHT = this.mainCanvas.height;
+
+		this.xmastreeCanvas = xmastreeCanvas;
+		this.X_C_WIDTH = this.xmastreeCanvas.width;
+		this.X_C_HEIGHT = this.xmastreeCanvas.height;
+		this.xmastreeCtx = this.xmastreeCanvas.getContext('2d');
+		this.xmastreeCtx.drawImage(imgObj, 0, 0, _this.X_C_WIDTH, _this.X_C_HEIGHT);
+		this.imageData = _this.xmastreeCtx.getImageData(0, 0, _this.X_C_WIDTH, _this.X_C_HEIGHT);      
+
+		this.charOfTree1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#$%&2345689';
+		this.charOfTree2 = '170iorl.,;\'';
+		this.charOfTree1 = this.charOfTree1.split('');
+		this.charOfTree2 = this.charOfTree2.split('');
+
+		this.charOfSnow = '*@%#xo:.\'",`';
+		this.charOfSnow = this.charOfSnow.split('');
+
+		this.words = words;	
+        console.log(this.words);
+	}
+
+	XmasTree.prototype.drawTheTree = function() {
+		this.mainCtx.fillStyle = '#000';
+			this.mainCtx.fillRect(0, 0, this.M_C_WIDTH, this.M_C_HEIGHT);
+
+		this.mainCtx.fillStyle = '#fff';
+		this.mainCtx.font = '12px Ubuntu Mono';
+		this.mainCtx.textAlign = "left";
+
+		var x = 0;
+		var y = 0;
+		var lineHeight = 9;
+		var wordWrap = 11;
+
+		for(var i=0; i<this.imageData.data.length; i+=4) {
+
+			y = lineHeight * (i==0 ? 1 : Math.ceil(i / (4 * this.X_C_WIDTH)));
+			x = wordWrap * i / 4 - wordWrap * this.X_C_WIDTH * (y / lineHeight - 1);
+
+			if(this.imageData.data[i] > 130) {
+				this.mainCtx.fillText(' ', x, y);
+			} else if(this.imageData.data[i] > 20) {
+				this.mainCtx.fillText(this.charOfTree2[Math.ceil(Math.random()*(this.charOfTree2.length-1))], x, y);
+			}
+			else {
+				this.mainCtx.fillText(this.charOfTree1[Math.ceil(Math.random()*(this.charOfTree1.length-1))], x, y);
+			}
+		}
+	}
+
+	XmasTree.prototype.snow = function() {
+		var snowflakeNum = 50;
+		var _this = this;
+		var x = 0, y = 0;
+		_this.mainCtx.fillStyle = '#fff';
+		_this.mainCtx.font = '10px Ubuntu Mono';
+		_this.mainCtx.textAlign= "left";
+
+		for(var i=0; i<snowflakeNum; i++) {
+			if(Math.random() < 0.6) {
+				x = Math.random()*_this.M_C_WIDTH;
+				y = Math.random()*_this.M_C_HEIGHT;
+				_this.sfp.x.push(x);
+				_this.sfp.y.push(y);
+
+				_this.mainCtx.fillText(_this.charOfSnow[Math.ceil(Math.random()*(_this.charOfSnow.length-1))], x, y);
+
+			}
+		}
+		this.timer = setTimeout(function() {
+			var x = 0, y = 0;
+			_this.mainCtx.clearRect(0, 0, _this.M_C_WIDTH, _this.M_C_HEIGHT);
+			_this.drawTheTree();
+			_this.drawWords(_this.words);
+			var a = _this.sfp.x.length;
+
+			for(var i=0; i<a; i++) {
+				x = _this.sfp.x[i];
+				y = _this.sfp.y[i] + Math.random() * 20;
+				
+				_this.sfp.x.push(x);
+				_this.sfp.y.push(y);
+				
+				_this.mainCtx.fillText(_this.charOfSnow[Math.ceil(Math.random()*(_this.charOfSnow.length-1))], x, y);
+			}
+			_this.sfp.x = [];
+			_this.sfp.y = [];
+			_this.snow();
+		}, 150)
+	}
+
+	XmasTree.prototype.sfp = {
+		x : [],
+		y : []
+	}
+	
+	XmasTree.prototype.drawWords = function() {
+
+		var words = this.words;
+
+		this.mainCtx.fillStyle = '#fff';
+		this.mainCtx.font = '10px Ubuntu Mono';
+		this.mainCtx.textAlign= "left";
+			this.mainCtx.fillText('from Mengru', this.M_C_WIDTH-100, this.M_C_HEIGHT-20);
+		this.mainCtx.fillStyle = '#fff';
+		this.mainCtx.font = '30px Ubuntu Mono';
+		this.mainCtx.textAlign= "left";
+			this.mainCtx.fillText(words, 550, 300);
+	}
+
+	</script>
+</body>
+</html>

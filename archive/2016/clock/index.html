@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Clock</title>
+
+	<style>
+	body {
+		overflow: hidden;
+	}
+	.clock_body {
+		margin: 0 auto;
+		width: 300px; height: 300px;
+		border-radius: 50%;
+		background: #000;
+		position: absolute;
+		margin: auto; 
+		left: 0; top: 0; right: 0; bottom: 0;
+	}
+	.clock_num {
+		color: #fff;
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
+		font-size: 22px;
+	}
+	.clock_num * {
+		position: absolute;
+		margin: auto; height: 22px;
+		left: 0; top: 0; right: 0; bottom: 0;
+		text-align: center;
+	}
+	.pointer {
+		position: absolute;
+		width: 100%; height: 100%;
+		z-index: 10
+	}
+	.pointer * {
+		position: absolute;
+		margin: auto; 
+		left: 0; top: 0; right: 0; bottom: 0;
+		margin-bottom: 50%;
+	}
+	.circle {
+		width: 10%; height: 10%;
+		border-radius: 50%;
+		background: #aaa;
+		margin: auto;
+		z-index: 10;
+	}
+	.hour {
+		height: 100px; width: 10px;
+		background: #fff;
+		transform-origin: 50% 100%;
+		-webkit-transform-origin: 50% 100%;
+
+		animation: rotate_h 43200s linear infinite;
+		-webkit-animation: rotate_h 43200s linear infinite;
+	}
+	.minute {
+		height: 110px; width: 8px;
+		background: #ddd;
+		transform-origin: 50% 100%;
+		-webkit-transform-origin: 50% 100%;
+
+		animation: rotate_m 3600s linear infinite;
+		-webkit-animation: rotate_m 3600s linear infinite;
+	}
+	.second {
+		height: 130px; width: 4px;
+		background: #f00;
+		transform-origin: 50% 100%;
+		-webkit-transform-origin: 50% 100%;
+
+		animation: rotate_s 60s linear infinite;
+		-webkit-animation: rotate_s 60s linear infinite;
+	}
+
+	</style>
+
+	<script>
+
+	;(function() {
+
+		var rotateStyle = document.createElement('style');
+			rotateStyle.setAttribute('id', 'rotate_style');
+			document.getElementsByTagName('head')[0].appendChild(rotateStyle);
+
+		var time = new Date();
+
+		var hour = (time.getHours() > 12 ? time.getHours() - 12 : time.getHours())/12*360 + time.getMinutes()/60*30,
+			minute = time.getMinutes()/60*360,
+			second = time.getSeconds()/60*360;
+
+		function createRotateStyle(a, name) {
+			return '@keyframes '+name+' {0% {transform: rotate('+a+'deg); } 100% {transform: rotate('+(360+a)+'deg); }} @-webkit-keyframes '+name+' {0% {-webkit-transform: rotate('+a+'deg); } 100% {-webkit-transform: rotate('+(360+a)+'deg); }}';
+		}
+		rotateStyle.innerHTML = createRotateStyle(hour, 'rotate_h') + createRotateStyle(minute, 'rotate_m') + createRotateStyle(second, 'rotate_s');
+	})()
+		
+	</script>
+
+	</head>
+<body>
+	<div class="clock_body">
+		<div class="pointer">
+			<div class="circle"></div>
+			<div id="hour" class="hour"></div>
+			<div id="minute" class="minute"></div>
+			<div id="second" class="second"></div>
+		</div>
+		<div id="clock_num" class="clock_num">
+			<span class="one">1</span>
+			<span class="two">2</span>
+			<span class="three">3</span>
+			<span class="four">4</span>
+			<span class="five">5</span>
+			<span class="six">6</span>
+			<span class="seven">7</span>
+			<span class="eight">8</span>
+			<span class="nine">9</span>
+			<span class="ten">10</span>
+			<span class="eleven">11</span>
+			<span class="twelve">12</span>
+		</div>
+	</div>
+
+	<script>
+		;(function() {
+			var clockNum = document.getElementById('clock_num');
+
+			var num = clockNum.getElementsByTagName('span'),
+				BASE = 127, angle, x, y;
+
+			for(var i=0; i<num.length; i++) {
+				angle = parseInt(num[i].innerHTML)/12 * 2 * Math.PI;
+				x = Math.round(Math.sin(angle) * BASE);
+				y = - Math.round(Math.cos(angle) * BASE);
+				num[i].style.transform = 'translate('+x+'px,'+y+'px)';
+				num[i].style.webkitTransform = 'translate('+x+'px,'+y+'px)';
+			}
+		})()
+	</script>
+
+</body>
+</html>

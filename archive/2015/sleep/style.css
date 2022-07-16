@@ -1,0 +1,142 @@
+html {
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  text-align: center;
+  background-color: #282b36;
+  display: table;
+  width: 100%; height: 100%;
+}
+body,button,p,div,a,span {
+  font-family: '微软雅黑';
+}
+a {
+  text-decoration: none;
+}
+header {
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+.r_border,
+.g_border,
+.y_border {
+  height: 8px;
+  display: block;
+  width: 33.33%;
+  margin: 0;
+  float: left;
+}
+.r_border {
+  background-color: #f33e6f;
+}
+.g_border {
+  background-color: #46bfbd;
+}
+.y_border {
+  background-color: #fdb45c;
+}
+.content {
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+}
+.clock_box a {
+  display: inline-block;
+  color: rgba(255,255,255,.5);
+  margin-top: 20px;
+}
+.clock_btn {
+  width: 60%; height: 17rem;
+  background-color: rgba(255,255,255,.4);
+  border: 0;
+  box-shadow: 0 8px 0 #000;
+  border-radius: 30px;
+  font-size: 10rem;
+  color: #282b36;
+  outline: none;
+  cursor: pointer;
+}
+.clock_btn:active {
+  border-bottom: 0;
+  box-shadow: inset 4px 6px 0 #000;
+  background-color: rgba(255,255,255,.3);
+}
+.time,
+.good_night {
+  color: rgba(255,255,255, .8);
+  font-size: 10rem;
+  margin-top: 25px;
+  margin-bottom: 0;
+  text-shadow: 2px 2px 0 rgba(0,0,0, .9);
+}
+.good_night {
+  margin-top: 0;
+}
+.good_night_box {
+  display: none;
+}
+.opt {
+  display: inline-block;
+  color: #282b36;
+  margin-top: 20px;
+  font-size: 20px;
+  background-color: rgba(255,255,255,.5);
+  border-radius: 10px;
+  padding: 10px;
+}
+.chart_box {
+  margin: 0 auto;
+  width: 70%;
+  display: none;
+}
+.chart_box h1 {
+  color: rgba(255,255,255, .8);
+  font-size: 4rem;
+  margin-bottom: 0;
+  text-shadow: 2px 2px 0 rgba(0,0,0, .9);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.chart_box p {
+  color: rgba(255,255,255, .8);
+  font-size: 3rem;
+  margin-bottom: 0;
+  text-shadow: 2px 2px 0 rgba(0,0,0, .9);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1124px) {
+  html {
+    font-size: 8px;
+  }
+}
+@media screen and (max-width: 900px) {
+  html {
+    font-size: 7px;
+  }
+  .clock_btn {
+    height: 13rem;
+    font-size: 8rem
+  }
+  .a:before {
+    content: ' ';
+  }
+}
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 7px;
+  }
+  .clock_btn {
+    width: 76%;
+    height: 15rem;
+    font-size: 7rem
+  }
+  .a {
+    display: block;
+  }
+}
