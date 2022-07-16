@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic conch</title>
+</head>
+<body>
+  <div id="main"></div>
+
+  <script>
+const LTS = {
+  2022: [
+    ['tags', 'https://github.com/mengrru/tags'],
+    ['surf', 'surf']
+  ],
+  2021: [
+    ['snow', 'snow']
+  ]
+}
+const Archived = {
+  2018: [
+    ['extract subject color', 'archive/2018/extract_subject_color']
+  ],
+  2016: [
+    ['chrome dinosaur', 'archive/2016/chrome_dinosaur'],
+    ['clock', 'archive/2016/clock'],
+    ['solar system', 'archive/2016/solarSystem'],
+    ['tetris', 'archive/2016/tetris']
+  ],
+  2015: [
+    ['sleep time', 'archive/2015/sleep'],
+    ['todo', 'archive/2015/todo'],
+    ['xmastree', 'archive/2015/xmastree']
+  ]
+}
+
+const genHTML = (data) =>
+  Object.keys(data).sort((a, b) => b - a).reduce((res, year) => {
+    const items = data[year]
+    const itemHTML = items.reduce((res, item) => `${res}<li><a target="_blank" href="${item[1]}">${item[0]}</a></li>`, '')
+    return `${res}<h2>${year}</h2><ul>${itemHTML}</ul>`
+  }, '')
+
+document.getElementById('main').innerHTML = `<h1>LTS</h1>${genHTML(LTS)}<h1>Archived</h1>${genHTML(Archived)}`
+
+  </script>
+</body>
+</html>
